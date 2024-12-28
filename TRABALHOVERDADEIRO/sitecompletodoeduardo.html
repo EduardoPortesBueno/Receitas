@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Busca de Receitas</title>
+    <style>
+        * {
+
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(120deg, #f7d9c4, #f5f0f0);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .conteiner1 {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start; 
+            flex-wrap: wrap; 
+            gap: 20px; 
+            background-color: #fff;
+            font-weight: bolder;
+            border-radius: 15px;
+            width: 100%;
+            margin-bottom: 20px;
+            }
+        .conteiner2 {
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            flex-wrap: wrap;
+            padding: 30px;
+            margin-bottom: 20px;
+            
+        }
+        .conteiner {
+            align-items: center;font-weight: bolder;
+            display: flex;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        #receitastipicasde {
+            justify-content: center;
+            font-weight: bolder;
+            font-size: 50px;
+            display: flex;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #444;
+            text-align: center;
+        }
+        .barradepesquisa {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            width: 800px;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .barradepesquisa input[type="text"] {
+            flex: 1;
+            padding: 10px 15px;
+            font-size: 1em;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .barradepesquisa button {
+            padding: 10px 20px;
+            background: #ff6f61;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .barradepesquisa button:hover {
+            background: #e05d51;
+        }
+        .filtros {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        h1 {
+            width: 400px;
+        }
+        .filtro {
+            flex-wrap: wrap;
+            padding: 10px 15px;
+            background: #ddd;
+            border-radius: 8px;
+            font-size: 0.9em;
+            color: #444;
+            cursor: pointer;
+            transition: 0.5s ease;
+        }
+        .filtro:hover {
+            background: #bbb;
+            transform: scale(1.05);
+        }
+        .resultados {
+            margin-left: 20px;
+            box-sizing: border-box;
+            border-radius: 15px;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            position: absolute;  
+            left: 0; 
+            width: 30%; 
+            padding: 10px; 
+            height: 620px;
+        }
+        .receita {
+            width: 100%;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px auto;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            transition: 0.5s ease;
+        }
+        .receita1:hover{
+            transform: scale(1.05);
+            transition: 0.5s;
+        }
+        .receita1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 270px;
+    width: 30%; 
+    margin: 10px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px black;
+    padding: 15px;
+    transition: 0.5s ease;
+}
+        .receita:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+        .receita h3 {
+            font-size: 1.5em;
+            color: #ff6f61;
+            margin-bottom: 10px;
+        }
+        .receita p {
+            font-size: 1em;
+            color: #555;
+        }
+        .caixa {
+            margin-left: 20px;
+            box-sizing: border-box;
+            border-radius: 15px;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            position: absolute;  
+            right: 0;
+            width: 30%; 
+            padding: 10px; 
+            height: 620px;
+        }
+        details {
+            margin-top: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            padding: 15px;
+        }
+        details summary {
+            font-size: 1.2em;
+            font-weight: bold;
+            background: #ff6f61;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.3s ease;
+        }
+        details summary:hover {
+            background: #e05d51;
+        }
+        .utensilios{
+            align-items: center;
+            width: 33%;
+            font-size: 1em;
+            color: #555;
+        }
+        .cartao:hover {
+            transform: scale(1.05);
+        }
+        .cartao {
+            border-radius: 15px;
+            font-weight: bolder;
+            font-size: larger;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-top: 20px;
+            transition: 0.5s ease;
+        }
+        .bababoi {
+            position: absolute;
+            right: 0;
+            top: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 500px;
+            margin-bottom: 35px
+        }
+        #bababoi {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 30px;
+            position: absolute;
+            bottom: 143px;
+            right: 60px;
+        }
+            .divslider {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ff6f61;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease;
+        }
+        img {
+            width: 100%;
+            height: 300px;
+        }
+        #receitasalta{
+            background-color: #fff;
+            margin-top: 30px;
+            border-radius: 15px;
+            font-weight: bolder;
+
+        }
+        .h3div {
+         display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+         height: 50px;
+        width: 100%;
+        font-size: larger;
+        font-weight: bolder;
+}
+
+        h3 {
+            font-weight: bolder;
+        }
+        li {
+            font-size: larger;
+            margin-top: 10px;
+            margin-left: 20px;
+        }
+
+        .slidergeral {
+            position: relative;
+            width: 100%;
+        }
+
+        .slider {
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 8px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+            opacity: 0.9;
+        }
+
+        .slidernum {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            top: 30px;
+            width: 100%;
+            font-size: 14px;
+            color: #555;
+            pointer-events: none;
+        }
+#bacalhau {
+    font-size: 20px;
+    margin-bottom: 40px;
+    margin-left: 100px;
+    margin-right: 10px;
+    text-align: left;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+}
+#blocao {
+    display:flex;
+    margin-bottom: 0px;
+}
+#logosite {
+    height: 650px;
+    transition: 0.3s;
+}
+#logosite:hover {
+    transform: scale(1.2);
+    
+}
+.imagemcorre {
+    border-radius: 15px;
+}
+    </style>
+</head>
+<body>
+    <div class="conteiner2">
+        <h1>Busca com base nos ingredientes</h1>
+       <div>
+        <div class="barradepesquisa">
+            <input type="text" placeholder="Digite os ingredientes que você tem (ex.: farinha, ovos, leite)">
+            <button>Buscar</button>
+        </div>
+        <div class="filtros">
+            <div class="filtro">Sobremesas</div>
+            <div class="filtro">Massas</div>
+            <div class="filtro">Baixo Açúcar</div>
+            <div class="filtro">Vegetariano</div>
+            <div class="filtro">Fácil</div>
+        </div>
+        <div class="bababoi">
+            <h1 id="bababoi">Mais procurados do mês:</h1>
+                <details>
+                    <summary>Dia a Dia</summary>
+                    <div class="conteudo-receitas">
+                        <p>Receita 1: Arroz de forno rápido.</p>
+                        <p>Receita 2: Omelete com queijo e ervas.</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>Fim de Ano</summary>
+                    <div class="conteudo-receitas">
+                        <p>Receita 1: Peru assado tradicional.</p>
+                        <p>Receita 2: Farofa de Natal.</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>Festa da Firma</summary>
+                    <div class="conteudo-receitas">
+                        <p>Receita 1: Salgadinhos de queijo.</p>
+                        <p>Receita 2: Mini sanduíches especiais.</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>Aniversários</summary>
+                    <div class="conteudo-receitas">
+                        <p>Receita 1: Bolo de chocolate cremoso.</p>
+                        <p>Receita 2: Brigadeiro gourmet.</p>
+            </div>
+        </details>
+    </div>
+</div>
+    </div>
+<div id="blocao">
+    <div class="resultados">
+        <h1>Mais procurados de hoje:</h1>
+        <div class="receita">
+            <h3>Bolo de Chocolate</h3>
+            <p>Ingredientes: farinha, açúcar, cacau, ovos, leite</p>
+        </div>
+        <div class="receita">
+            <h3>Macarrão ao Alho e Óleo</h3>
+            <p>Ingredientes    : macarrão, alho, azeite, sal</p>
+        </div>
+        <div class="receita">
+            <h3>Creme de Abacate</h3>
+            <p>Ingredientes: abacate, limão, açúcar mascavo</p>
+        </div>
+    </div>
+    <div>
+        <img id="logosite" src="/componentedenis/imagem/redu.png">
+    </div>
+        <div class="caixa">
+            <h1>A Favorita do site: <br>
+                Bacalhau tiro e queda</h1>
+            <p id="bacalhau">
+                Ingredientes (2 porções): <br>
+                peixe bacalhau
+                200 g de bacalhau desfiado em lascas grandes <br>
+                1 e ½ cebola de cabeça cortada em rodelas <br>
+                2 batatas <br>
+                2 colheres de queijo tipo catupiry <br>
+                azeitona verde <br>
+                5 azeitonas verdes ou pretas <br>
+                azeite de oliva extravirgem <br>
+                100 ml de azeite extra virgem <br>
+                salsa <br>
+                1 colher de salsinha picada <br>
+                queijo parmesão ralado <br>
+                1 colher de queijo parmesão ralado <br>
+            </p>
+            <h1>   Quantas porções?</h1>
+            <div class="divslider">
+                <div class="slidergeral">
+                    <input type="range" min="2" max="5" value="2" step="1" class="slider" id="multiplicador-slider">
+                    <div class="slidernum">
+                        <span>2</span>
+                        <span>3</span>
+                        <span>4</span>
+                        <span>5</span>
+                    </div>
+                </div>
+            </div>        
+        </div>
+    </div>
+        <div id="receitasalta">
+            <h1 id="h1div">Equipamentos necessários para:</h1>
+        </div>
+        <div class="conteiner1">
+            <div class="receita1">
+        <ul class="utensilios">
+            <div class="h3div">
+                <h3>Bolos/pudins/doces</h3>
+            </div>
+            <li>Batedeira</li>
+            <li>Fouet</li>
+            <li>Colher de Pau</li>
+            <li>Forma para bolo</li>
+            <li>Peneira</li>
+            <li>Tigela grande</li>
+        </ul>
+    </div>
+    <div class="receita1">
+        <ul class="utensilios">
+            <div class="h3div">
+                <h3>Panquecas/massas</h3>
+            </div>
+            <li>Frigideira</li>
+            <li>Colher de sopa</li>
+            <li>Tigela média</li>
+            <li>Espátula</li>
+            <li>Medidor de xícaras</li>
+        </ul>
+    </div>
+    <div class="receita1">
+        <ul class="utensilios">
+            <div class="h3div">
+                <h3>Tortas/assadosㅤㅤㅤㅤ</h3>
+            </div>
+            <li>Forma de torta</li>
+            <li>Rolo de massa</li>
+            <li>Faca de corte</li>
+            <li>Tigela grande</li>
+            <li>Pincel culinário</li>
+        </ul>
+    </div>
+</div>
+
+
+    <h1 id="receitastipicasde">Receitas Típicas de:</h1>
+    <div class="conteiner">
+        <div class="cartao">
+            <img class="imagemcorre" src="/componentedenis/imagem/guamirim.jpg">
+            <h3>Guamirim</h3>
+            <p>Cuca: Um bolo tradicional alemão com cobertura de farofa doce e frutas.</p>
+            <p>Chimia de frutas: Geleia caseira, especialmente de uva ou maçã.</p>
+        </div>
+        <div class="cartao">
+            <img   class="imagemcorre" src="/componentedenis/imagem/braganey.jpg" alt="">
+            <h3>Braganey</h3>
+            <p>Arroz tropeiro: Mistura de arroz, linguiça, carne seca, e temperos.</p>
+            <p>Bolo de polvilho: Tradicional em comunidades rurais do Paraná.</p>
+        </div>
+        <div class="cartao">
+            <img    class="imagemcorre" src="/componentedenis/imagem/guarapuava.jpg" alt="">
+            <h3>Guarapuava</h3>
+            <p>Pierogi ou Pirohy: Um pastel recheado, cozido ou frito, típico da culinária polonesa.</p>
+            <p>Soquete de carneiro com agrião: Carne de carneiro bem cozida com vegetais.</p>
+        </div>
+        <div class="cartao">
+            <img    class="imagemcorre"   src="/componentedenis/imagem/pontagrossa.jpg" alt="">
+            <h3>Ponta Grossa</h3>
+            <p>Carneiro no buraco: Carne de carneiro cozida em um buraco forrado com brasas e terra.</p>
+            <p>Arroz carreteiro: Feito com charque ou carne seca.</p>
+        </div>
+        <div class="cartao">
+            <img class="imagemcorre"  src="/componentedenis/imagem/prudentopolis.jpg" alt="">
+            <h3>Prudentópolis</h3>
+            <p>Varenyky: Massa cozida recheada com batata e requeijão.</p>
+            <p>Borscht: Sopa de beterraba com creme azedo.</p>
+        </div>
+    </div>
+
+</body>
+</html>
