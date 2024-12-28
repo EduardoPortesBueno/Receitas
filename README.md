@@ -1,2 +1,4 @@
 # Receitas
 Trabalho faculdade, componentes utilizando apenas html e css, objetivo de desenvolver um site de receitas com componentes criativos.
+O trabalho foi realizado apenas por mim, o objetivo é desenvolver um site com 5 componentes diferentes criativos, não precisavam ser funcionais, já que o uso de Java Script não era permitido, então eu desenvolvi uma barra para busca de receitas com base nos ingredientes inseridos pelo usuário, também uma aba com receitas tipicas de cidades do Sul do País (visto que moro na região, uma aba de receitas mais procuradas, uma barra multiplicadora de receitas e uma indicação geral de ferramentas para cada "classe" de receitas, como bolos, massas etc.
+ O css foi todo baseado em um layout gerado por I.A, basicamente pedi para uma I.A me dar uma ideia de plaheta de cores e desing de um site de receitas, ai com alguns ajustes apliquei em meu site.
